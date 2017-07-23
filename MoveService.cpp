@@ -48,7 +48,7 @@ MoveTip MoveService::ForcedMove()
         for (int j = 0; j < 3; j++){
             horizontalSum += _field[i][j];
             verticalSum += _field[j][i];
-            qDebug() << horizontalSum << verticalSum;
+            //qDebug() << horizontalSum << verticalSum;
         }
 
         if (horizontalSum >= 2 || horizontalSum <= -2)
@@ -62,12 +62,11 @@ MoveTip MoveService::ForcedMove()
 
         diagonalSum1 += _field[i][i];
         diagonalSum2 += _field[i][2-i];
-
-        if (diagonalSum1 >= 2 || diagonalSum1 <= -2)
-            return MoveTip(DiagonalLeft);
-        if (diagonalSum2 >= 2 || diagonalSum2 <= -2)
-            return MoveTip(DiagonalRight);
     }
+    if (diagonalSum1 >= 2 || diagonalSum1 <= -2)
+        return MoveTip(DiagonalLeft);
+    if (diagonalSum2 >= 2 || diagonalSum2 <= -2)
+        return MoveTip(DiagonalRight);
 
     return MoveTip(None);
 }
