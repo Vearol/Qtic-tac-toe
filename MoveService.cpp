@@ -35,6 +35,12 @@ void MoveService::restart()
             _field[i][j] = 0;
     }
     _moveCounter = 0;
+
+    for (int i = 1; i <= 9; i++){
+        QObject *area = object->findChild<QObject*>(QString::number(i));
+        if (area)
+            area->setProperty("enabled", "true");
+    }
 }
 
 MoveTip MoveService::ForcedMove()
@@ -44,6 +50,8 @@ MoveTip MoveService::ForcedMove()
     short diagonalSum1 = 0;
     short diagonalSum2 = 0;
 
+    MoveTip* moveTip;
+    moveTip = new MoveTip(None);
     for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
             horizontalSum += _field[i][j];
@@ -51,11 +59,15 @@ MoveTip MoveService::ForcedMove()
             //qDebug() << horizontalSum << verticalSum;
         }
 
-        if (horizontalSum >= 2 || horizontalSum <= -2)
+        if (horizontalSum <= -2)
             return MoveTip(Horizontal, i);
+        if (horizontalSum >= 2)
+            moveTip = new MoveTip(Horizontal, i);
 
-        if (verticalSum >= 2 || verticalSum <= -2)
+        if (verticalSum <= -2)
             return MoveTip(Vertical, i);
+        if (verticalSum >= 2)
+            moveTip = new MoveTip(Vertical, i);
 
         horizontalSum = 0;
         verticalSum = 0;
@@ -63,12 +75,17 @@ MoveTip MoveService::ForcedMove()
         diagonalSum1 += _field[i][i];
         diagonalSum2 += _field[i][2-i];
     }
-    if (diagonalSum1 >= 2 || diagonalSum1 <= -2)
+    if (diagonalSum1 <= -2)
         return MoveTip(DiagonalLeft);
-    if (diagonalSum2 >= 2 || diagonalSum2 <= -2)
+    if (diagonalSum1 >= 2)
+        moveTip = new MoveTip(DiagonalLeft);
+    if (diagonalSum2 <= -2)
         return MoveTip(DiagonalRight);
+    if (diagonalSum2 >= 2)
+        moveTip = new MoveTip(DiagonalRight);
 
-    return MoveTip(None);
+
+    return *moveTip;
 }
 
 void MoveService::CalculateMove()
@@ -140,15 +157,60 @@ void MoveService::InitializeMove(Point &point)
     _field[point.X][point.Y] = -1;
 
     qDebug() << "CPU cell: " << point.ToString() << endl;
- //   QQmlEngine engine;
- //   QQmlComponent component(&engine,QUrl(QStringLiteral("qrc:/main.qml")));
- //   QObject *object = component.create();
 
     QObject *rect = object->findChild<QObject*>(point.ToString());
     if (rect)
-        rect->setProperty("color", "red");
+        //rect->setProperty("color", "red");
+        rect->setProperty("source", "qrc:/img/o.png");
+    QObject *areaDisable = object->findChild<QObject*>(QString::number(3*point.X + point.Y + 1));
+    if (areaDisable)
+        areaDisable->setProperty("enabled", "false");
+
+    if (CPUWin()){
+        QObject *text = object->findChild<QObject*>("endGameText");
+        if (text)
+            text->setProperty("text", "YOU LOSE");
+        for (int i = 1; i <= 9; i++){
+            QObject *area = object->findChild<QObject*>(QString::number(i));
+            if (area)
+                area->setProperty("enabled", "false");
+        }
+    }
 
     //delete object;
+}
+
+bool MoveService::CPUWin()
+{
+    short horizontalSum = 0;
+    short verticalSum = 0;
+    short diagonalSum1 = 0;
+    short diagonalSum2 = 0;
+
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 3; j++){
+            horizontalSum += _field[i][j];
+            verticalSum += _field[j][i];
+        }
+
+        if (horizontalSum == -3)
+            return true;
+
+        if (verticalSum == -3)
+            return true;
+
+        horizontalSum = 0;
+        verticalSum = 0;
+
+        diagonalSum1 += _field[i][i];
+        diagonalSum2 += _field[i][2-i];
+    }
+    if (diagonalSum1 == -3)
+        return true;
+    if (diagonalSum2 == -3)
+        return true;
+
+    return false;
 }
 
 QString Point::ToString()

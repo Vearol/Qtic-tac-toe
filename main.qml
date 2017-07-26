@@ -10,6 +10,8 @@ Window {
     minimumHeight: 420
     minimumWidth: 600
 
+    color: "#42d9f4"
+
     Rectangle {
         id: mainForm
 
@@ -18,8 +20,8 @@ Window {
         anchors.rightMargin: 190
 
         Rectangle {
-            id: one
-            objectName: "00"
+            id: oner
+            //objectName: "00"
             width: 120
             height: 120
             anchors.left: parent.left
@@ -33,24 +35,32 @@ Window {
                 return "#ffffff"
             }
 
+            Image{
+                id: one
+                anchors.fill: parent
+                objectName: "00"
+            }
+
             MouseArea {
                 id: areaOne
                 anchors.fill: parent
                 hoverEnabled: true
-
+                objectName: "1"
                 onClicked: {
-                    moveService.humanMove(parent.objectName)
-                    parent.color = "#429bf4"
+                    moveService.humanMove(one.objectName)
+                    one.source = "qrc:/img/x.png"
+                    enabled = false;
+                   // parent.color = "#429bf4"
                 }
             }
         }
 
         Rectangle {
-            id: two
-            objectName: "01"
+            id: twor
+            //objectName: "01"
             width: 120
             height: 120
-            anchors.left: one.right
+            anchors.left: oner.right
             anchors.leftMargin: 10
             anchors.top: parent.top
             anchors.topMargin: 10
@@ -60,24 +70,31 @@ Window {
                  //   return "#000000"
                 return "#ffffff"
             }
+            Image{
+                id: two
+                anchors.fill: parent
+                objectName: "01"
+            }
             MouseArea {
                 id: areaTwo
                 anchors.fill: parent
                 hoverEnabled: true
-
+                objectName: "2"
                 onClicked: {
-                    moveService.humanMove(parent.objectName)
-                    parent.color = "#429bf4"
+                    moveService.humanMove(two.objectName)
+                    two.source = "qrc:/img/x.png"
+                    enabled = false;
+                    //parent.color = "#429bf4"
                 }
             }
         }
 
         Rectangle {
-            id: three
-            objectName: "02"
+            id: threer
+            //objectName: "02"
             width: 120
             height: 120
-            anchors.left: two.right
+            anchors.left: twor.right
             anchors.leftMargin: 10
             anchors.top: parent.top
             anchors.topMargin: 10
@@ -87,26 +104,33 @@ Window {
                  //   return "#000000"
                 return "#ffffff"
             }
+            Image{
+                id: three
+                anchors.fill: parent
+                objectName: "02"
+            }
             MouseArea {
                 id: areaThree
                 anchors.fill: parent
                 hoverEnabled: true
-
+                objectName: "3"
                 onClicked: {
-                    moveService.humanMove(parent.objectName)
-                    parent.color = "#429bf4"
+                    moveService.humanMove(three.objectName)
+                    three.source = "qrc:/img/x.png"
+                    enabled = false;
+                    //parent.color = "#429bf4"
                 }
             }
         }
 
         Rectangle {
-            id: four
-            objectName: "10"
+            id: fourr
+            //objectName: "10"
             width: 120
             height: 120
             anchors.left: parent.left
             anchors.leftMargin: 10
-            anchors.top: one.bottom
+            anchors.top: oner.bottom
             anchors.topMargin: 10
 
             color: {
@@ -114,26 +138,33 @@ Window {
                  //   return "#000000"
                 return "#ffffff"
             }
+            Image{
+                id: four
+                anchors.fill: parent
+                objectName: "10"
+            }
             MouseArea {
                 id: areaFour
                 anchors.fill: parent
                 hoverEnabled: true
-
+                objectName: "4"
                 onClicked: {
-                    moveService.humanMove(parent.objectName)
-                    parent.color = "#429bf4"
+                    moveService.humanMove(four.objectName)
+                    four.source = "qrc:/img/x.png"
+                    enabled = false;
+                    //parent.color = "#429bf4"
                 }
             }
         }
 
         Rectangle {
-            id: five
-            objectName: "11"
+            id: fiver
+            //objectName: "11"
             width: 120
             height: 120
-            anchors.left: four.right
+            anchors.left: fourr.right
             anchors.leftMargin: 10
-            anchors.top: two.bottom
+            anchors.top: twor.bottom
             anchors.topMargin: 10
 
             color: {
@@ -141,26 +172,33 @@ Window {
                   //  return "#000000"
                 return "#ffffff"
             }
+            Image{
+                id: five
+                anchors.fill: parent
+                objectName: "11"
+            }
             MouseArea {
                 id: areaFive
                 anchors.fill: parent
                 hoverEnabled: true
-
+                objectName: "5"
                 onClicked: {
-                    moveService.humanMove(parent.objectName)
-                    parent.color = "#429bf4"
+                    moveService.humanMove(five.objectName)
+                    five.source = "qrc:/img/x.png"
+                    enabled = false;
+                    //parent.color = "#429bf4"
                 }
             }
         }
 
         Rectangle {
-            id: six
-            objectName: "12"
+            id: sixr
+            //objectName: "12"
             width: 120
             height: 120
-            anchors.left: five.right
+            anchors.left: fiver.right
             anchors.leftMargin: 10
-            anchors.top: three.bottom
+            anchors.top: threer.bottom
             anchors.topMargin: 10
 
             color: {
@@ -168,26 +206,33 @@ Window {
                  //   return "#000000"
                 return "#ffffff"
             }
+            Image{
+                id: six
+                anchors.fill: parent
+                objectName: "12"
+            }
             MouseArea {
                 id: areaSix
                 anchors.fill: parent
                 hoverEnabled: true
-
+                objectName: "6"
                 onClicked: {
-                    moveService.humanMove(parent.objectName)
-                    parent.color = "#429bf4"
+                    moveService.humanMove(six.objectName)
+                    six.source = "qrc:/img/x.png"
+                    enabled = false;
+                    //parent.color = "#429bf4"
                 }
             }
         }
 
         Rectangle {
-            id: seven
-            objectName: "20"
+            id: sevenr
+            //objectName: "20"
             width: 120
             height: 120
             anchors.left: parent.left
             anchors.leftMargin: 10
-            anchors.top: four.bottom
+            anchors.top: fourr.bottom
             anchors.topMargin: 10
 
             color: {
@@ -195,26 +240,33 @@ Window {
                   //  return "#000000"
                 return "#ffffff"
             }
+            Image{
+                id: seven
+                anchors.fill: parent
+                objectName: "20"
+            }
             MouseArea {
                 id: areaSeven
                 anchors.fill: parent
                 hoverEnabled: true
-
+                objectName: "7"
                 onClicked: {
-                    moveService.humanMove(parent.objectName)
-                    parent.color = "#429bf4"
+                    moveService.humanMove(seven.objectName)
+                    seven.source = "qrc:/img/x.png"
+                    enabled = false;
+                    //parent.color = "#429bf4"
                 }
             }
         }
 
         Rectangle {
-            id: eight
-            objectName: "21"
+            id: eightr
+            //objectName: "21"
             width: 120
             height: 120
-            anchors.left: seven.right
+            anchors.left: sevenr.right
             anchors.leftMargin: 10
-            anchors.top: five.bottom
+            anchors.top: fiver.bottom
             anchors.topMargin: 10
 
             color: {
@@ -222,26 +274,33 @@ Window {
                     //return "#000000"
                 return "#ffffff"
             }
+            Image{
+                id: eight
+                anchors.fill: parent
+                objectName: "21"
+            }
             MouseArea {
                 id: areaEight
                 anchors.fill: parent
                 hoverEnabled: true
-
+                objectName: "8"
                 onClicked: {
-                    moveService.humanMove(parent.objectName)
-                    parent.color = "#429bf4"
+                    moveService.humanMove(eight.objectName)
+                    eight.source = "qrc:/img/x.png"
+                    enabled = false;
+                    //parent.color = "#429bf4"
                 }
             }
         }
 
         Rectangle {
-            id: nine
-            objectName: "22"
+            id: niner
+            //objectName: "22"
             width: 120
             height: 120
-            anchors.left: eight.right
+            anchors.left: eightr.right
             anchors.leftMargin: 10
-            anchors.top: six.bottom
+            anchors.top: sixr.bottom
             anchors.topMargin: 10
 
             color: {
@@ -249,14 +308,21 @@ Window {
                   //  return "#000000"
                 return "#ffffff"
             }
+            Image{
+                id: nine
+                anchors.fill: parent
+                objectName: "22"
+            }
             MouseArea {
                 id: areaNine
                 anchors.fill: parent
                 hoverEnabled: true
-
+                objectName: "9"
                 onClicked: {
-                    moveService.humanMove(parent.objectName)
-                    parent.color = "#429bf4"
+                    moveService.humanMove(nine.objectName)
+                    nine.source = "qrc:/img/x.png"
+                    enabled = false;
+                    //parent.color = "#429bf4"
                 }
             }
         }
@@ -264,7 +330,23 @@ Window {
         color: "#cccccc"
     }
 
-    Button {
+    Text {
+        id: endGameText
+        objectName: "endGameText"
+
+        width: 100
+        height: 60
+
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.rightMargin: 30
+        anchors.topMargin: 200
+
+        font.bold: true
+        font.pixelSize: 20
+    }
+
+    CustomButton {
         id: restart
 
         width: 100
@@ -278,18 +360,30 @@ Window {
         text: "Restart"
 
         onClicked: {
-            one.color = "#ffffff"
-            two.color = "#ffffff"
-            three.color = "#ffffff"
-            four.color = "#ffffff"
-            five.color = "#ffffff"
-            six.color = "#ffffff"
-            seven.color = "#ffffff"
-            eight.color = "#ffffff"
-            nine.color = "#ffffff"
+            one.source = ""
+            two.source = ""
+            three.source = ""
+            four.source = ""
+            five.source = ""
+            six.source = ""
+            seven.source = ""
+            eight.source = ""
+            nine.source = ""
 
+            endGameText.text = ""
             moveService.restart()
         }
+
+        enabled: {
+            one.source != ""
+            || two.source != ""
+            || three.source != ""
+            || four.source != ""
+            || five.source != ""
+            || six.source != ""
+            || seven.source != ""
+            || eight.source != ""
+            || nine.source != ""}
     }
 }
 

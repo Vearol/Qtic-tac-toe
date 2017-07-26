@@ -51,6 +51,7 @@ private:
 
     void CalculateMove();
     void InitializeMove(Point &point);
+    bool CPUWin();
 
     short _moveCounter = 0;
     QObject* object;
