@@ -25,6 +25,12 @@ void MoveService::humanMove(const QString &cell)
         InitializeMove(firstPont);
         return;
     }    
+    if (SomeoneWin() > 0){
+        QObject *text = object->findChild<QObject*>("endGameText");
+        if (text)
+            text->setProperty("text", "YOU WIN");
+    }
+
     CalculateMove();
 }
 
@@ -139,24 +145,25 @@ void MoveService::CalculateMove()
         }
     }
     if (tip.movePosition == None){
-        for (int i = 0; i < 3; i++){
-            for (int j = 0; j < 3; j++){
-                if (_field[i][j] == 0){
-                    Point newMove(i, j);
-                    qDebug() << newMove.ToString();
-                    InitializeMove(newMove);
-                    return;
-                }
-            }
+        short xRand = qrand() % 3;
+        short yRand = qrand() % 3;
+        int i = 0;
+        while (_field[xRand][yRand] != 0){
+            xRand = qrand() % 3;
+            yRand = qrand() % 3;
+            i++;
+            if (i > 100) break;
         }
+        Point newMove(xRand, yRand);
+        qDebug() << newMove.ToString();
+        InitializeMove(newMove);
+        return;
     }
 }
 
 void MoveService::InitializeMove(Point &point)
 {
     _field[point.X][point.Y] = -1;
-
-    qDebug() << "CPU cell: " << point.ToString() << endl;
 
     QObject *rect = object->findChild<QObject*>(point.ToString());
     if (rect)
@@ -166,10 +173,15 @@ void MoveService::InitializeMove(Point &point)
     if (areaDisable)
         areaDisable->setProperty("enabled", "false");
 
-    if (CPUWin()){
+    short winType = SomeoneWin();
+    qDebug() << winType;
+    if (winType != 0){
         QObject *text = object->findChild<QObject*>("endGameText");
         if (text)
-            text->setProperty("text", "YOU LOSE");
+            if (winType == 1)
+                text->setProperty("text", "YOU WIN");
+            if (winType == -1)
+                text->setProperty("text", "YOU LOSE");
         for (int i = 1; i <= 9; i++){
             QObject *area = object->findChild<QObject*>(QString::number(i));
             if (area)
@@ -180,7 +192,7 @@ void MoveService::InitializeMove(Point &point)
     //delete object;
 }
 
-bool MoveService::CPUWin()
+short MoveService::SomeoneWin()
 {
     short horizontalSum = 0;
     short verticalSum = 0;
@@ -193,11 +205,17 @@ bool MoveService::CPUWin()
             verticalSum += _field[j][i];
         }
 
+        if (horizontalSum == 3)
+            return 1;
+
+        if (verticalSum == 3)
+            return 1;
+
         if (horizontalSum == -3)
-            return true;
+            return -1;
 
         if (verticalSum == -3)
-            return true;
+            return -1;
 
         horizontalSum = 0;
         verticalSum = 0;
@@ -206,11 +224,16 @@ bool MoveService::CPUWin()
         diagonalSum2 += _field[i][2-i];
     }
     if (diagonalSum1 == -3)
-        return true;
+        return -1;
     if (diagonalSum2 == -3)
-        return true;
+        return -1;
 
-    return false;
+    if (diagonalSum1 == 3)
+        return 1;
+    if (diagonalSum2 == 3)
+        return 1;
+
+    return 0;
 }
 
 QString Point::ToString()

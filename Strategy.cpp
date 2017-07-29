@@ -28,9 +28,10 @@ Point Strategy::FirstMove(short x, short y)
     }
     if (contains(_strategy2, &point)){
         qDebug() << "strategy2";
-        if (x - 1 == 0)
-            return Point(x-1, y);
-        return Point(x, y+1);
+        //if (x - 1 == 0)
+          //  return Point(x-1, y);
+        //return Point(x, y+1);
+        return Point(1,1);
     }
     if (contains(_strategy3, &point)){
         qDebug() << "strategy3";
